@@ -1,5 +1,6 @@
 import http, { IncomingMessage, Server, ServerResponse } from "http";
-import { getData, createDatum } from "./Controllers/controller";
+import { getData, createDatum, updateData, removeData } from "./Controllers/controller";
+// import url from 'url';
 /*
 implement your server code here
 */
@@ -19,9 +20,11 @@ const server: Server = http.createServer((req: IncomingMessage, res: ServerRespo
         break;
       case 'PUT' :
         // Insert code here
+        updateData(req, res);
         break;
       case 'DELETE' :
         // Insert code here
+        removeData(req, res);
         break;
       default: 
         console.log(`${req.method} Request is not accounted for within this API`);

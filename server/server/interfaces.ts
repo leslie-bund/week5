@@ -8,7 +8,7 @@ export interface Datum {
     address?: string;
     ceo?: string;
     country?: string;
-    id?: number;
+    id?: number | string;
     noOfEmployees?: number;
     employees?: string[];
 }

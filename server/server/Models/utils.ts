@@ -24,6 +24,9 @@ export async function writeToFile(datum: Datum) {
     const newArr = [...JSON.parse(allData), datum];
     await fs.writeFile(dbFilePath, JSON.stringify(newArr));
 }
+export async function writeFile(data: Datum[]) {
+    await fs.writeFile(dbFilePath, JSON.stringify(data));
+}
 
 export function getPostData(req: IncomingMessage, res:ServerResponse): Promise<Datum> {
     return new Promise((resolve, reject) => {
@@ -33,7 +36,7 @@ export function getPostData(req: IncomingMessage, res:ServerResponse): Promise<D
         })
         req.on('end', async () => {
             if (!requestBody) {
-                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.writeHead(204, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({'message': 'No content provided'}));
             } else {
                 try {
