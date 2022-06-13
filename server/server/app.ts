@@ -1,4 +1,5 @@
-import http, { IncomingMessage, Server, ServerResponse } from "http";
+import http, { get, IncomingMessage, Server, ServerResponse } from "http";
+import { getData } from "./Controllers/controller";
 /*
 implement your server code here
 */
@@ -10,6 +11,7 @@ const server: Server = http.createServer((req: IncomingMessage, res: ServerRespo
     switch (req.method) {
       case 'GET' :
         // Insert code here
+        getData(req, res);
         break;
       case 'POST' :
         // Insert code here
