@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import { Datum } from "../interfaces";
 import { IncomingMessage, ServerResponse } from "http";
+import qs from "querystring";
 
 // Dynamically get the contents stored in data.json
 const dbFilePath = path.resolve(__dirname, 'database.json');
@@ -24,7 +25,7 @@ export async function writeToFile(datum: Datum) {
     await fs.writeFile(dbFilePath, JSON.stringify(newArr));
 }
 
-export function getPostData(req: IncomingMessage, res:ServerResponse): Promise<string> {
+export function getPostData(req: IncomingMessage, res:ServerResponse): Promise<Datum> {
     return new Promise((resolve, reject) => {
         let requestBody: string;
         req.on('data', (chunk: Buffer) => {
@@ -35,7 +36,11 @@ export function getPostData(req: IncomingMessage, res:ServerResponse): Promise<s
                 res.writeHead(200, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({'message': 'No content provided'}));
             } else {
-                resolve(requestBody);
+                try {
+                    resolve(JSON.parse(requestBody));
+                } catch (error) {
+                    resolve(qs.parse(requestBody))
+                }
             }
         })
     })

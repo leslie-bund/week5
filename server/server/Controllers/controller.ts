@@ -16,70 +16,11 @@ export async function getData(res: ServerResponse) {
     }
 }
 
-// @desc    Adds a new datum to the Data
+// @desc    Adds a new datum to the Database
 // @route   POST /
 export async function createDatum(req: IncomingMessage, res: ServerResponse) {
-    const requestBody: string = await getPostData(req, res);
-    let recievedDatum: Datum;
-    try {
-        const { 
-            organization,
-            createdAt,
-            updatedAt,
-            products,
-            marketValue,
-            address,
-            ceo,
-            country,
-            // id: id,
-            noOfEmployees,
-            employees,
-        }: Datum = JSON.parse(requestBody);
-        recievedDatum = {
-            organization: organization,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            products: products,
-            marketValue: marketValue,
-            address: address,
-            ceo: ceo,
-            country,
-            // "id": id,
-            noOfEmployees: Number(noOfEmployees),
-            employees: employees,
-        }
-        const newDatum = await create(recievedDatum);
-        res.writeHead(201, {'Content-Type': 'application/json'});
-        res.end(JSON.stringify(newDatum));
-    } catch (error) {
-        const { 
-            organization,
-            createdAt,
-            updatedAt,
-            products,
-            marketValue,
-            address,
-            ceo,
-            country,
-            // id: id,
-            noOfEmployees,
-            employees,
-        }: Datum = qs.parse(requestBody);
-        recievedDatum = {
-            organization: organization,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            products: products,
-            marketValue: marketValue,
-            address: address,
-            ceo: ceo,
-            country,
-            // "id": id,
-            noOfEmployees: Number(noOfEmployees),
-            employees: employees,
-        }
+    let recievedDatum: Datum = await getPostData(req, res);
     const newDatum = await create(recievedDatum);
     res.writeHead(201, {'Content-Type': 'application/json'});
     res.end(JSON.stringify(newDatum));
-    }
 }
