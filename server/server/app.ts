@@ -11,7 +11,7 @@ const server: Server = http.createServer((req: IncomingMessage, res: ServerRespo
     switch (req.method) {
       case 'GET' :
         // Insert code here
-        getData(req, res);
+        getData(res);
         break;
       case 'POST' :
         // Insert code here
