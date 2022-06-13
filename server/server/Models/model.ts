@@ -1,23 +1,16 @@
-import path from 'path';
-import fs from 'fs/promises';
-
-// Dynamically get the contents stored in data.json
-const dbFilePath = path.resolve(__dirname, 'data.json');
-const rawData = (async function getFileContent() {
-    try {
-        const content = await fs.readFile(dbFilePath, {encoding: 'utf8'});
-        return content;
-    } catch (error) {
-        const firstContent = JSON.stringify([]);
-        await fs.writeFile(dbFilePath, firstContent);
-        const content = await fs.readFile(dbFilePath, {encoding: 'utf8'});
-        return content;
-    }
-})();
-const data = (async () => JSON.parse(await rawData))();
+import { getFileContent, writeToFile } from "./utils";
+import { Datum } from "../interfaces";
 
 export function findAll() {
-    return new Promise((resolve, reject) => {
-        resolve(data);
+    return new Promise(async (resolve, reject) => {
+        resolve(await getFileContent());
     })
+}
+
+export async function create (datumObj: Datum) {
+    const allDataString: string = await getFileContent();
+    const allData = JSON.parse(allDataString);
+    datumObj.id = (allData.pop()?.id + 1) || 1;
+    await writeToFile(datumObj);
+    return datumObj;
 }

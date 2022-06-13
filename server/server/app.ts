@@ -24,7 +24,7 @@ const server: Server = http.createServer((req: IncomingMessage, res: ServerRespo
         // Insert code here
         break;
       default: 
-        console.log('Request is not accounted for within this API');
+        console.log(`${req.method} Request is not accounted for within this API`);
         break;
     }
   }
