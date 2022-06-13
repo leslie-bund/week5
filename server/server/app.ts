@@ -1,5 +1,5 @@
-import http, { get, IncomingMessage, Server, ServerResponse } from "http";
-import { getData } from "./Controllers/controller";
+import http, { IncomingMessage, Server, ServerResponse } from "http";
+import { getData, createDatum } from "./Controllers/controller";
 /*
 implement your server code here
 */
@@ -15,6 +15,7 @@ const server: Server = http.createServer((req: IncomingMessage, res: ServerRespo
         break;
       case 'POST' :
         // Insert code here
+        createDatum(req, res);
         break;
       case 'PUT' :
         // Insert code here

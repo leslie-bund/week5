@@ -1,9 +1,9 @@
-// import data from './data.json';
 import path from 'path';
 import fs from 'fs/promises';
 
+// Dynamically get the contents stored in data.json
 const dbFilePath = path.resolve(__dirname, 'data.json');
-const data = (async function getFileContent() {
+const rawData = (async function getFileContent() {
     try {
         const content = await fs.readFile(dbFilePath, {encoding: 'utf8'});
         return content;
@@ -14,7 +14,7 @@ const data = (async function getFileContent() {
         return content;
     }
 })();
-
+const data = (async () => JSON.parse(await rawData))();
 
 export function findAll() {
     return new Promise((resolve, reject) => {
