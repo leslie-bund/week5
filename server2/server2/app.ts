@@ -11,7 +11,6 @@ const server: Server = http.createServer((req: IncomingMessage, res: ServerRespo
     if (req.method === "GET") {
       (async () => {
         var result = await parser(`https:/` + urlObject.pathname);
-        console.log(JSON.stringify(result, ['og'],3));
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ 
           meta: {
