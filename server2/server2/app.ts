@@ -1,5 +1,5 @@
 import http, { IncomingMessage, Server, ServerResponse } from 'http';
-import https from 'https';
+// import https from 'https';
 import { parser } from 'html-metadata-parser';
 
 /*
@@ -23,5 +23,11 @@ const server: Server = http.createServer((req: IncomingMessage, res: ServerRespo
     }
   }
 );
+
+/**
+ * Notes for refactoring 
+ * - Adjust the POST method to collect the scraping url from the request body.
+ * - Add the link to favicon image to the images array
+ */
 
 server.listen(3001);
