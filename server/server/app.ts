@@ -32,5 +32,12 @@ const server: Server = http.createServer((req: IncomingMessage, res: ServerRespo
     }
   }
 );
+// Required modifications based on review
+/**
+ * 1. When a data is updated, the entire object that is updated should be returned in the response instead of just an object containing the updated fields only
+ * 2. Modify the getFileContent() function to return an object instead of a string(POST, GET)
+ * 3. when adding new data in the create() function (POST) - refactor the function to prevent calling getFileContent() again before writing to the database.json file
+ * 4. Modify the utils, to combine both the writeToFile() and writeFile() functions
+ */
 
 server.listen(3005, ()=> console.log('Server is running'));
